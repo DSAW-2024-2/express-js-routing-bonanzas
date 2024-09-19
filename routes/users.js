@@ -3,6 +3,8 @@ const router = express.Router();
 
 let users = [];
 
+let possibleId=1;
+
 router.get('/', (req, res) => {
     res.json(users);
 });
@@ -33,14 +35,15 @@ router.post('/', (req, res) => {
         return;
     }
     if (!user.id) {
-        user.id = users.length + 1;
+        user.id = possibleId;
+        possibleId++;
     }else if(isNaN(user.id) || users.id<1){
         res.status(400).json({ error: 'Invalid ID' });
         return;
     }
-    const existingOrder = orders.find(o => o.id === order.id);
-    if (existingOrder) {
-        res.status(400).json({ error: 'Order ID already exists' });
+    const existingUser = users.find(u => u.id === user.id);
+    if (existingUser) {
+        res.status(400).json({ error: 'User ID already exists' });
         return;
     }
     users.push(user);
