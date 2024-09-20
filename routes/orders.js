@@ -5,7 +5,7 @@ const router = express.Router();
 const { users } = require('./users');
 const { products } = require('./products');
 
-let possibleId=1;
+let possibleIdord=1;
 
 let orders = [];
 
@@ -34,8 +34,8 @@ router.post('/', (req, res) => {
         return;
     }
     if (!order.id) {
-        order.id = possibleId;
-        possibleId++;
+        order.id = possibleIdord;
+        possibleIdord++;
     } else if (isNaN(order.id) || order.id < 1) {
         res.status(400).json({ error: 'Invalid ID' });
         return;

@@ -3,7 +3,7 @@ const router = express.Router();
 
 let products = [];
 
-let possibleId=1;
+let possibleIdpr=1;
 
 router.get('/', (req, res) => {
     res.json(products);
@@ -29,8 +29,8 @@ router.post('/', (req, res) => {
         res.status(400).json({ error: 'Category must be a string' });
         return;
     }if (!product.id) {
-        product.id = possibleId;
-        possibleId++;
+        product.id = possibleIdpr;
+        possibleIdpr++;
     }else if(isNaN(product.id) || products.id<1){
         res.status(400).json({ error: 'Invalid ID' });
         return;
@@ -92,6 +92,7 @@ router.delete('/:id', (req, res) => {
         return;
     }
     products = products.filter(product => product.id !== id);
+    possibleIdpr--;
     res.json({ message: 'User deleted successfully' });
 });
 module.exports = {router, products};

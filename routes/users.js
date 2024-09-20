@@ -3,7 +3,7 @@ const router = express.Router();
 
 let users = [];
 
-let possibleId=1;
+let possibleIdus=1;
 
 router.get('/', (req, res) => {
     res.json(users);
@@ -35,8 +35,8 @@ router.post('/', (req, res) => {
         return;
     }
     if (!user.id) {
-        user.id = possibleId;
-        possibleId++;
+        user.id = possibleIdus;
+        possibleIdus++;
     }else if(isNaN(user.id) || users.id<1){
         res.status(400).json({ error: 'Invalid ID' });
         return;
@@ -105,6 +105,7 @@ router.delete('/:id', (req, res) => {
         return;
     }
     users = users.filter(user => user.id !== id);
+    possibleIdus--;
     res.json({ message: 'User deleted successfully' });
 });
 module.exports = {router, users};
